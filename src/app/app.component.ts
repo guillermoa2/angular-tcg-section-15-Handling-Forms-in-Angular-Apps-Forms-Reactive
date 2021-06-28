@@ -12,7 +12,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.signupForm = new FormGroup({
-      'username': new FormControl(null, Validators.required, ), //wrapping the key as a string, just incase. To not interfere with the HTML code,
+      'username': new FormControl(null, Validators.required), //wrapping the key as a string, just incase. To not interfere with the HTML code,
       'email': new FormControl(null, [Validators.required, Validators.email]),
       'gender': new FormControl('female'), // CAN pass null for radio, BUT a default value is set instead
     });
