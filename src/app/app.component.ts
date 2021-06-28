@@ -17,4 +17,8 @@ export class AppComponent implements OnInit {
       'gender': new FormControl('female'), // CAN pass null for radio, BUT a default value is set instead
     });
   }
+
+  onSubmit() {
+    console.log(this.signupForm);
+  }
 }
