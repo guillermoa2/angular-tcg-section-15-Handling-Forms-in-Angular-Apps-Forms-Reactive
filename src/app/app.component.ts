@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
@@ -6,7 +6,7 @@ import { FormControl, FormGroup } from '@angular/forms';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements ngOnInit {
+export class AppComponent implements OnInit {
   genders = ['male', 'female'];
   signupForm: FormGroup;
 
