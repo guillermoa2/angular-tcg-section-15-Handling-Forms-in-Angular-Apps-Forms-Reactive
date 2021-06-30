@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-root',
@@ -14,9 +16,10 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.signupForm = new FormGroup({
       'userData': new FormGroup({ // Nested Form Group
+        // Wrapping the key as a string, just incase. To not interfere with the HTML code,
         'username': new FormControl(null, [Validators.required, this.forbiddenNames.bind(this)]),
-         //wrapping the key as a string, just incase. To not interfere with the HTML code,
-        'email': new FormControl(null, [Validators.required, Validators.email]),
+        // Async functions are a third argument outside the Validators[], 
+        'email': new FormControl(null, [Validators.required, Validators.email], this.forbiddenEmails),
       }),
       'gender': new FormControl('female'),
        // CAN pass null for gender radio, BUT a default value is set instead,
@@ -53,6 +56,19 @@ export class AppComponent implements OnInit {
       return {'nameIsForbidden': true};
     } 
     return null;  // return {'nameIsForbidden': false} will NOT work! OR just omit the return statement
+  }
+
+  forbiddenEmails(control: FormControl):  Promise<any> | Observable<any> {
+    const promise = new Promise<any>((resolve, reject) => {
+      setTimeout(() => {
+        if (control.value === 'test@test.com') {
+          resolve({'emailIsForbidden': true});
+        } else {
+          resolve(null);
+        }
+      }, 1500);
+    });
+    return promise;
   }
 
 }
