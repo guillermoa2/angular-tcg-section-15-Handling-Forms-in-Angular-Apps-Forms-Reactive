@@ -34,18 +34,32 @@ export class AppComponent implements OnInit {
       (value) => console.log(value)
     );
 
+    this.signupForm.setValue({
+      'userData': {
+        'username': 'Max',
+        'email': 'Max@test.com',
+      },
+      'gender': 'male',
+      'hobbies': []
+    });
+
+    this.signupForm.patchValue({
+      'userData': {
+        'username': 'Anna',
+      }
+    });
   }
 
+  // You can pass an object to reset() to reset to specific values! ex. .reset({'gender': 'male'})
   onSubmit() {
     console.log(this.signupForm);
+    this.signupForm.reset({'gender': 'male'})
   }
 
   onAddHobby() {
     const control = new FormControl(null, Validators.required);
     (<FormArray>this.signupForm.get('hobbies')).push(control);
-
   }
-
 
   // Alternative, Outsource the "get the controls" logic into a method
 
